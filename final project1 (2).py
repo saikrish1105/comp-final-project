@@ -539,7 +539,7 @@ def Quickconnect():
     go.grid(row=1, column=1)
 
 
-def savechat():
+def savechat(choice):
     """Saves history with Tkinter's asksaveasfilename dialog."""
     global main_body_text
     file_name = asksaveasfilename(
