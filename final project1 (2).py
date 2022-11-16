@@ -694,8 +694,8 @@ else:
         print("optionmenu dropdown clicked:", choice)
 
     combobox = customtkinter.CTkOptionMenu(master=root,
-                                           values=["Save Chat", "Change Username","Exit"],
-                                           command=optionmenu_callback)
+                                           values=["Save Chat","Change Username","Exit"],
+                                           command=savechat)
     combobox.pack(padx=20, pady=10)
     combobox.set("File")  # set initial value
     #for connect menu
