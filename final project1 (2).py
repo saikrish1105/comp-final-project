@@ -539,7 +539,7 @@ def Quickconnect():
     go.grid(row=1, column=1)
 
 
-def savechat(choice):
+def savechat():
     """Saves history with Tkinter's asksaveasfilename dialog."""
     global main_body_text
     file_name = asksaveasfilename(
@@ -554,11 +554,12 @@ def savechat(choice):
     for line in contents:
         filehandle.write(line)
     filehandle.close()
+    root.destroy()
 # -------------------------------------------------------------------------
 #for change_username
-def change_username(master):
+def change_username():
     """Launches username options window for setting username."""
-    top = customtkinter.CTkToplevel(master)
+    top = customtkinter.CTkToplevel()
     top.geometry("400x200")
     top.title("Username options")
     top.grab_set()
@@ -586,7 +587,7 @@ def username_options_go(name, window):
     window.destroy()
 # -------------------------------------------------------------------------
 #connect
-def connects(clientType):
+def connects():
     global conn_array # will connect to
     connecter.config(state=DISABLED)
     if len(conn_array) == 0:
@@ -594,7 +595,7 @@ def connects(clientType):
             connect_on_port(root)
 
     else:
-        # connecter.config(state=NORMAL)
+        connecter.config(state=NORMAL)
         for connection in conn_array:
             connection.send("-001".encode())
         processFlag("-001")
@@ -690,25 +691,28 @@ else:
     logo_label.iamge = logo
     logo_label.grid(column=1,row=0)"""
     #for file menu
-    def optionmenu_callback(choice):
+    def optionmenu_callback():
         print("optionmenu dropdown clicked:", choice)
 
-    combobox = customtkinter.CTkOptionMenu(master=root,
-                                           values=["Save Chat","Change Username","Exit"],
-                                           command=savechat)
+    combobox = customtkinter.CTkButton(master=root,text="savechat",command=savechat)
     combobox.pack(padx=20, pady=10)
-    combobox.set("File")  # set initial value
+    #for change username
+    change_username1=customtkinter.CTkButton(master=root,text="change username",command=change_username)
+    change_username1.pack(padx=20, pady=10)
+
+    # for exit
+    exit1 = customtkinter.CTkButton(master=root,text="exit",corner_radius=10,command=root.destroy)
+    exit1.place(x=400,y=0)
+
     #for connect menu
-    def optionmenu_callback1(choice):
-        print("optionmenu dropdown clicked:", choice)
+    def optionmenu_callback1():
+        print("optionmenu dropdown clicked:")
 
 
-    combobox = customtkinter.CTkOptionMenu(master=root,
-                                           values=["Quick Connect", "Connect On Port","Disconnect"],
-                                           command=optionmenu_callback1)
+    combobox = customtkinter.CTkButton(master=root,text="Quick Connect",corner_radius=10,command=connects)
     combobox.pack(padx=20, pady=10)
-    combobox.set("Connect")  # set initial value
-    root.config(menu=menubar)
+
+
 
     main_body = customtkinter.CTkFrame(master=root, height=20, width=50,corner_radius=10)
 
