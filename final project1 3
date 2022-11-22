@@ -714,6 +714,11 @@ else:
     combobox.pack(padx=20, pady=10)
     root.config(menu=menubar)
 
+    combobox = customtkinter.CTkButton(master=top,
+                                       text=("Disconnect"),
+                                       command=lambda: processFlag("-001"))
+    combobox.pack(padx=20, pady=10)
+
     main_body = customtkinter.CTkFrame(master=root, height=20, width=50,corner_radius=10)
 
     main_body_text = Text(main_body)
