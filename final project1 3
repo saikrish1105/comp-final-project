@@ -531,8 +531,8 @@ def Quickconnect():
     window.geometry("400x200")
     window.title("Connection options")
     window.grab_set()
-    Label(window, text="Server IP:").grid(row=0)
-    destination = Entry(window)
+    customtkinter.CTkLabel(master=window, text="Server IP:").grid(row=0)
+    destination = customtkinter.CTkEntry(window)
     destination.grid(row=0, column=1)
     go = customtkinter.CTkButton(master=window, text="Connect",corner_radius=10, command=lambda:
     client_options_go(destination.get(), "9999", window))
@@ -562,8 +562,8 @@ def change_username():
     top.geometry("400x200")
     top.title("Username options")
     top.grab_set()
-    Label(top, text="Username:").grid(row=0)
-    name = Entry(top)
+    customtkinter.CTkLabel(master=top, text="Username:").grid(row=0)
+    name = customtkinter.CTkEntry(top)
     name.focus_set()
     name.grid(row=0, column=1)
     go = customtkinter.CTkButton(master=top, text="Change",corner_radius=10, command=lambda:
@@ -609,12 +609,12 @@ def connect_on_port():
     top.title("Connection options")
     top.protocol("WM_DELETE_WINDOW", lambda: optionDelete(top))
     top.grab_set()
-    Label(top, text="Server IP:").grid(row=0)
-    location = Entry(top)
+    customtkinter.CTkLabel(master=top, text="Server IP:").grid(row=0)
+    location = customtkinter.CTkEntry(top)
     location.grid(row=0, column=1)
     location.focus_set()
-    Label(top, text="Port Adr:").grid(row=1)
-    port = Entry(top)
+    customtkinter.CTkLabel(master=top, text="Port Adr:").grid(row=1)
+    port = customtkinter.CTkEntry(top)
     port.grid(row=1, column=1)
     go = customtkinter.CTkButton(master=top, text="Connect",corner_radius=10, command=lambda:
     client_options_go(location.get(), port.get(), top))
@@ -681,7 +681,7 @@ if len(sys.argv) > 1 and sys.argv[1] == "-cli":
 
 else:
     root = customtkinter.CTk()
-    root.geometry(f"{500}x{500}")
+    root.geometry(f"{700}x{500}")
     root.title("Chat Room")
 
     menubar = customtkinter.CTkOptionMenu(master=root)
@@ -696,13 +696,16 @@ else:
 
     combobox = customtkinter.CTkButton(master=root,text="Save Chat",corner_radius=10,command=savechat)
     combobox.pack(padx=20, pady=10)
+    combobox.place(x=290,y=0)
     '''combobox.set("File")'''  # set initial value
     #for exit
     exit1=customtkinter.CTkButton(master=root,text="exit",corner_radius=10,command=root.destroy)
     exit1.pack(padx=20, pady=10)
+    exit1.place(x=435,y=0)
     #for change username
     change_username1=customtkinter.CTkButton(master=root,text="change username",corner_radius=10,command=change_username)
     change_username1.pack(padx=20, pady=10)
+    change_username1.place(x=0,y=0)
     #for connect menu
     def optionmenu_callback1():
         print("optionmenu dropdown clicked:")
@@ -712,6 +715,7 @@ else:
                                            text=("Quick Connect"),
                                            command=connect_on_port)
     combobox.pack(padx=20, pady=10)
+    combobox.place(x=145,y=0)
     root.config(menu=menubar)
 
     combobox = customtkinter.CTkButton(master=top,
@@ -719,7 +723,7 @@ else:
                                        command=lambda: processFlag("-001"))
     combobox.pack(padx=20, pady=10)
 
-    main_body = customtkinter.CTkFrame(master=root, height=20, width=50,corner_radius=10)
+    main_body = customtkinter.CTkFrame(master=root, height=200, width=50,corner_radius=10)
 
     main_body_text = Text(main_body)
     body_text_scroll = customtkinter.CTkScrollbar(main_body)
@@ -734,13 +738,13 @@ else:
     main_body_text.insert(END, "Welcome to the chat program!\nType-'/' to \nConnect to a port or \nChange your nickname!")
     main_body_text.config(state=DISABLED)
 
-    text_input = Entry(root, width=50)
+    text_input = customtkinter.CTkEntry(root, width=500)
     text_input.bind("<Return>", processUserText)
     text_input.bind("<KeyRelease>", processUserTextHighlight)
     text_input.pack()
 
     # create hint popup
-    popup = Menu(root, tearoff=0)
+    popup = Menu(master=root, tearoff=0)
     popup.add_command(label=commands[0], command=lambda: complete(0, commands))
     popup.add_command(label=commands[1], command=lambda: complete(1, commands))
     popup.add_command(label=commands[2], command=lambda: complete(2, commands))
@@ -749,13 +753,13 @@ else:
     statusConnect = StringVar()
     statusConnect.set("Connect")
     clientType = 1
-    Radiobutton(root, text="Client", variable=clientType,
-                value=0, command=toOne).pack(anchor=E)
-    Radiobutton(root, text="Server", variable=clientType,
-                value=1, command=toTwo).pack(anchor=E)
-    connecter = Button(root, textvariable=statusConnect,
+    '''a=customtkinter.CTkRadioButton(master=root, text="Client", variable=clientType,value=0, command=toOne)
+    a.pack(anchor=E)
+    b=customtkinter.CTkRadioButton(master=root, text="Server", variable=clientType,value=1, command=toTwo)
+    b.pack(anchor=E)'''
+    connecter = customtkinter.CTkButton(master=root, textvariable=statusConnect,
                        command=lambda: connects(clientType))
-    connecter.pack()
+    connecter.pack(padx=0,pady=0)
 
 
 
